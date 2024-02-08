@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<head>
+    <title>{% block title %}Maintenance Data{% endblock %}</title>
+    <!-- Include any common CSS files or meta tags here -->
+</head>
+
+<body>
+    {% block content %}
+    <!-- Child templates will override this block -->
+    {% endblock %}
+</body>
+
+</html>
