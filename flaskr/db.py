@@ -1,16 +1,28 @@
 import sqlite3
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
+from instance import config
 
 import click
 from flask import current_app, g
 
-def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
+import flaskr
 
+def get_db():
+    if "db" not in g:
+        g.db = sqlite3.connect(
+        current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES)
+    g.db.row_factory = sqlite3.Row
+
+    return g.db
+
+def get_railwaydb():
+    if "db" not in g:
+        current_app.config['SQLALCHEMYURI_DATABASE_URI'] = config.RAILWAY_MYSQL_URI
+        g.db = SQLAlchemy(current_app)
     return g.db
 
 
